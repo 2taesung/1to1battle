@@ -13,6 +13,8 @@ export default new Vuex.Store({
     battleList: [],
     postbattle: {},
     postmovie1: {},
+    postmovie2: {},
+    movie1url:[],
     
     token: localStorage.getItem('token'),
   },
@@ -39,22 +41,41 @@ export default new Vuex.Store({
     },
     POST_MOVIE_1(state, ans1){
       state.postmovie1 = ans1
+    },
+    POST_MOVIE_2(state, ans2){
+      state.postmovie2 = ans2
+    },
+    MOVIE_1_URL(state, movie_1_url){
+      state.movie1url = movie_1_url
     }
 
   },
   actions: {
-    async FETCH_POST_MOVIE_1({ commit }, post_movie_id) {
+    async FETCH_POST_MOVIE_1({ commit }, post_movie_id1) {
       const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
       // console.log(post_movie_id)
       const response = await axios.get(BATTLE_MOVIE_URL)
       const responsedata = response.data
-      const ans1 = responsedata.filter(movie => movie.id === post_movie_id)
+      const ans1 = responsedata.filter(movie => movie.id === post_movie_id1)
       console.log(commit)
       // console.log(post_movie_id)
       // console.log(response)
       console.log(ans1)
 
       commit('POST_MOVIE_1', ans1)
+    },
+    async FETCH_POST_MOVIE_2({ commit }, post_movie_id2) {
+      const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
+      // console.log(post_movie_id)
+      const response = await axios.get(BATTLE_MOVIE_URL)
+      const responsedata = response.data
+      const ans2 = responsedata.filter(movie => movie.id === post_movie_id2)
+      console.log(commit)
+      // console.log(post_movie_id)
+      // console.log(response)
+      console.log(ans2)
+
+      commit('POST_MOVIE_2', ans2)
     },
     async FETCH_BATTLE_LIST({ commit }) {
       const BATTLE_LIST_URL = 'http://localhost:8000/api/v1/community/post_list/'
@@ -71,6 +92,11 @@ export default new Vuex.Store({
       console.log(commit)
 
       commit('DETAIL_POST', response)
+    },
+    async FETCH_POST_MOVIE_1_URL({ commit }, post_movie_id_tail){
+      const movie_1_url = `https://image.tmdb.org/t/p/w500/${post_movie_id_tail}`
+
+      commit('MOVIE_1_URL', movie_1_url)
     },
  
     AUTH_USER({ commit }, userInfo) {

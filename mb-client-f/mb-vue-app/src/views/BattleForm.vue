@@ -24,10 +24,7 @@
 
       <button v-on:click.prevent="make" class="btn btn-primary">Submit</button>
       
-      <li>
-        <!-- /osdwif0XkFgalOCPksm4Yvczyzc.jpg -->
-        <img src="/osdwif0XkFgalOCPksm4Yvczyzc.jpg" alt="">
-      </li>
+
 
     </div>
   </div>
