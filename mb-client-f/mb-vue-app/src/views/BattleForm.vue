@@ -23,8 +23,6 @@
       <br>
 
       <button v-on:click.prevent="make" class="btn btn-primary">Submit</button>
-      
-
 
     </div>
   </div>
@@ -55,7 +53,7 @@ export default {
       })
         .then(res => {
           console.log(res)
-          this.$router.push({ name: 'home' })
+          // this.$router.push({ name: 'home' })
         })
         .catch(err => {
           console.log(err)

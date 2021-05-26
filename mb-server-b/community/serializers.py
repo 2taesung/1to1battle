@@ -12,9 +12,9 @@ class CommunitySerializer(serializers.ModelSerializer):
         fields = (
             'user', 'title', 'movie_title_1', 'movie_title_2',
         )
-        # read_only_fields = [
-        #     'user', 
-        # ]
+        read_only_fields = [
+            'user', 'movie_title_1', 'movie_title_2',
+        ]
 
 
 class MovieSerializer(serializers.ModelSerializer):

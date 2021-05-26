@@ -29,6 +29,7 @@ def post_create(request):
     movie2_title = request.data.get('movie_title_2')
     movie1 = Movie.objects.get(title=movie1_title)
     movie2 = Movie.objects.get(title=movie2_title)
+    print(request.data)
     if request.user.is_authenticated:
         # print()
         if request.method == 'POST':
