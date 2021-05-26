@@ -8,7 +8,9 @@ class Movie(models.Model):
     title =  models.CharField(max_length=300)
     overview = models.TextField()
     poster_path = models.TextField(null=True)
-    vote_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='vote_movies')
+    vote_users = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='vote_movies')
+    #유저모델이랑 m:n관계
+
 
 class Community(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
