@@ -15,6 +15,8 @@ export default new Vuex.Store({
     postmovie1: {},
     postmovie2: {},
     movie1url:[],
+    movie_1_count:0,
+    movie_2_count:0,
     
     token: localStorage.getItem('token'),
   },
@@ -47,10 +49,36 @@ export default new Vuex.Store({
     },
     MOVIE_1_URL(state, movie_1_url){
       state.movie1url = movie_1_url
+    },
+    MOVIE_1_VOTE_COUNT(state, movie_1_count){
+      state.movie_1_count = movie_1_count
+    },
+    MOVIE_2_VOTE_COUNT(state, movie_2_count){
+      state.movie_2_count = movie_2_count
     }
 
   },
   actions: {
+    async FETCH_VOTE_MOVIE_COUNT_2({ commit }, movie_data_2) {
+      console.log(commit)
+      const movie_id = movie_data_2.id
+      const BATTLE_MOVIE_URL = `http://localhost:8000/api/v1/community/my_vote/${movie_id}/`
+      const response = await axios.get(BATTLE_MOVIE_URL)
+      console.log(response.data)
+      const movie_2_count = response.data.vote_users.length
+
+      commit('MOVIE_2_VOTE_COUNT', movie_2_count)
+    },
+    async FETCH_VOTE_MOVIE_COUNT_1({ commit }, movie_data_1) {
+      console.log(commit)
+      const movie_id = movie_data_1.id
+      const BATTLE_MOVIE_URL = `http://localhost:8000/api/v1/community/my_vote/${movie_id}/`
+      const response = await axios.get(BATTLE_MOVIE_URL)
+      console.log(response.data)
+      const movie_1_count = response.data.vote_users.length
+
+      commit('MOVIE_1_VOTE_COUNT', movie_1_count)
+    },
     async FETCH_POST_MOVIE_1({ commit }, post_movie_id1) {
       const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
       // console.log(post_movie_id)
