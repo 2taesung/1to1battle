@@ -25,4 +25,9 @@ class Community(models.Model):
         return self.title
 
 
+class Comment(models.Model):
+    content = models.CharField(max_length=200)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="comments", on_delete=models.CASCADE)
+    community = models.ForeignKey(Community, related_name="comments", on_delete=models.CASCADE)
+
 

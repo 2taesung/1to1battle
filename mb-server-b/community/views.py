@@ -103,8 +103,9 @@ def my_vote(request, movie_pk):
             serializer.save()
             return Response(serializer.data)
     elif request.method == 'POST':
+        print(request.user)
         movie.vote_users.add(request.user)
-        serializer = VoteSerializer(my_vote)
+        serializer = MovieSerializer(movie)
         return Response(data = serializer.data)
     else:
         movie.vote_users.remove(request.user)
@@ -126,3 +127,25 @@ def profile(request, user_pk):
     user = get_object_or_404(get_user_model(), pk=user_pk)
     user_serializer = UserSerializer(user)
     return Response(user_serializer.data)
+
+
+@api_view(['POST'])
+def commentcreate(request, post_id):
+    serializer = CommentSerializer(data=request.data)
+    user_id = request.data.get('user_id')
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(post_id=post_id, user_id=user_id)
+    return Response(serializer.data)
+
+
+@api_view(['PUT', 'DELETE'])
+def comment_update_and_delete(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.method == 'PUT':
+        serializer = CommentSerializer(data=request.data, instance=comment)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'message': '댓글 수정 완료'})
+    else:
+        comment.delete()
+        return Response({'message': '댓글 삭제 완료'})

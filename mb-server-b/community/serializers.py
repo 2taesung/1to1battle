@@ -25,7 +25,14 @@ class MovieSerializer(serializers.ModelSerializer):
             # 'title', 'overview', 'poster_path',
             # 'created_at', 'updated_at',
         
+        
 class VoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'content', 'post_id', 'user_id']
