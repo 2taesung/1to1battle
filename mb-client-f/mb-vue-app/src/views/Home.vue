@@ -1,9 +1,13 @@
 <template>
   <div class="home">
-    <img src="@/assets/img.jpeg" alt="">
-    <div class="carousel-item active d-flex justify-content-center">
-      <img src="@/assets/logo.png/" class="d-block w-50" alt="...">
+    <h1>
+      <img style="top:10px; width: 30%; " src="@/assets/hot-battle.png/" class="" alt="...">
+    </h1>
+    <div class="center d-flex justify-content-center">
+        <img style="top:650px; width: 45%; position: absolute; bottom: 0px; " src="@/assets/logo.png/" class="" alt="...">
+        <img style="width: 30%; bottom: 22px;" src="@/assets/img.jpeg" alt="" > 
     </div>
+
     
 
   </div>
@@ -19,3 +23,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+img {
+  display:flex;
+  margin:auto;
+}
+</style>
