@@ -1,4 +1,5 @@
 # from django.db.models import fields
+from django.db.models import fields
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import *
@@ -20,7 +21,11 @@ class CommunitySerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields ='__all__'
+        fields = '__all__'
             # 'title', 'overview', 'poster_path',
             # 'created_at', 'updated_at',
         
+class VoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = '__all__'

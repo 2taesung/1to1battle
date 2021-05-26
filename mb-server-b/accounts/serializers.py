@@ -15,7 +15,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     community_set = CommunitySerializer(many=True)
-    # movies = MovieSerializer(many=True)
+    vote_movie = MovieSerializer(many=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'community_set')
+        fields = ['id', 'username', 'community_set', 'vote_movie',]

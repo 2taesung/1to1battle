@@ -54,7 +54,7 @@ def movie_list(request):
     #     if serializer.is_valid(raise_exception=True):
     #         serializer.save(author=request.user)
     #         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-
+   
 
 #게시글 리스트 불러오기
 @api_view(['GET', 'POST'])
@@ -68,20 +68,6 @@ def post_list(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save(author=request.user)
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-
-
-# @api_view(['GET', 'POST'])
-# def community_list(request):
-#     if request.method == 'GET':
-#         movies= Movie.objects.all()
-#         serializer = MovieSerializer(movies, many=True)
-#         return Response(serializer.data)
-
-#     elif request.method == 'POST':
-#         serializer = CommunitySerializer(data=request.data) # 바인딩
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save(author=request.user)
-#             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -105,9 +91,30 @@ def post_detail(request, post_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-#내가 적은 or 투표한 글(?)
+@api_view(['GET', 'PUT', 'POST', 'DELETE'])
+def my_vote(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    if request.method == 'GET':
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = VoteSerializer(data=request.data, instance=movie)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    elif request.method == 'POST':
+        movie.vote_users.add(request.user)
+        serializer = VoteSerializer(my_vote)
+        return Response(data = serializer.data)
+    else:
+        movie.delete()
+        return Response({'message': '영화가 삭제되었습니다.'})
+
+
+#내가 적은 글(?), 투표한 글
 @api_view(['GET'])
 def my_post(request):
+    print(request.data)
     user = request.user
     user_serializer = UserSerializer(user)
     return Response(user_serializer.data)

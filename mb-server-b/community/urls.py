@@ -14,5 +14,5 @@ urlpatterns = [
     # path('json-1/', views.community_json_1),
     path('post_create/', views.post_create),
     path('my_post/', views.my_post, name='my_post'),
-
+    path('my_vote/<int:movie_pk>/', views.my_vote, name='my_vote'),
 ]
