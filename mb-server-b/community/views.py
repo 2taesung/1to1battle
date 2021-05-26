@@ -107,8 +107,8 @@ def my_vote(request, movie_pk):
         serializer = VoteSerializer(my_vote)
         return Response(data = serializer.data)
     else:
-        movie.delete()
-        return Response({'message': '영화가 삭제되었습니다.'})
+        movie.vote_users.remove(request.user)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 #내가 적은 글(?), 투표한 글
