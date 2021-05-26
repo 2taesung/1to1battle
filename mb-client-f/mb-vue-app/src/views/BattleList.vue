@@ -23,14 +23,11 @@ export default {
       return this.$store.getters.getBattleList
     }
   },
-
   async created() {
     this.$store.dispatch('FETCH_BATTLE_LIST')
   }
-
 }
 </script>
 
 <style>
-
 </style>
