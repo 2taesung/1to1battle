@@ -18,4 +18,7 @@ urlpatterns = [
     #comment
     path('commentcreate/<int:post_id>/', views.commentcreate),
     path('comment_update_and_delete/<int:comment_pk>/', views.comment_update_and_delete),
+
+    # 최대 투표 포스트 찾기
+    path('recommand/', views.recommand),
 ]

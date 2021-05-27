@@ -149,3 +149,29 @@ def comment_update_and_delete(request, comment_pk):
     else:
         comment.delete()
         return Response({'message': '댓글 삭제 완료'})
+
+
+@api_view(['GET'])
+def recommand(request):
+    vote_max = 0
+    post_info = {}
+    # 하나의 게시글에 두개의 영화 ,
+    for post in Community.objects.all():
+        print(post)
+        # rank_post = Community.objects.get(pk=posts)
+        
+        movie1 = post.movie_title_1.vote_users.count()
+        movie2 = post.movie_title_2.vote_users.count()
+        result = movie1+movie2
+
+        if result > vote_max:
+            vote_max = result
+            post_info = post
+    print(vote_max)
+    serializer = CommunitySerializer(post_info)
+    return Response(data = serializer.data)
+
+        # return print(result)
+    
+        #저 vote_max를 나오게한 영화를 역으로 추적하는 방법은?
+        # 커뮤니티에 sumvote model을 만들어줘야하나?
