@@ -9,9 +9,9 @@
       <div class="card" style="width: 30%; height: 50%;">
         <img style="width: 100%; height: 400px;" :src="poster_movie_1" class="card-img-top" alt="..."/>
       </div>
-
-      <img tyle="width: 50px; height: 50px;" src="@/assets/vs.png" alt="">
-      
+      <center>
+        <img style="width: 150px; height: 250px;" src="@/assets/vs-height.png" alt="">
+      </center>
       <div class="card" style="width: 30%; height: 50%;">
         <img style="width: 100%; height: 400px;" :src="poster_movie_2" class="card-img-top" alt="..."/>
       </div>

@@ -8,7 +8,7 @@
     <h3>{{ postbattle.movie_title_2 }}</h3> -->
     <!-- <h3>{{ movie_1[0].title }}</h3> -->
     <div class="d-flex justify-content-center">
-      <div class="card" style="width: 30%; height: 50%;">
+      <div class="card" style="width: 25%; height: 50%;">
         <div style="color: black; font-size: 20px;"> {{ movie_1[0].title }} </div>
         <img style="width: 100%; height: 400px;" :src="poster_movie_1" class="card-img-top" alt="..."/>
         <div class="mb-3 form-check">
@@ -16,10 +16,10 @@
           <label style="color: black; font-size: 20px;" class="form-check-label" for="exampleCheck1">투표</label>
         </div>
       </div>
-
-      <img tyle="width: 50px; height: 50px;" src="@/assets/vs.png" alt="">
-      
-      <div class="card" style="width: 30%; height: 50%;">
+      <center>
+        <img style="width: 200px; height: 300px;" src="@/assets/vs-height.png" alt="">
+      </center>
+      <div class="card" style="width: 25%; height: 50%;">
         <div style="color: black; font-size: 20px;"> {{ movie_2[0].title }} </div>
         <img style="width: 100%; height: 400px;" :src="poster_movie_2" class="card-img-top" alt="..."/>
         <div class="mb-3 form-check">
@@ -29,13 +29,16 @@
       </div>
     </div>
 
-    <div class="d-flex justify-space-around">
-      <div>
-        <h1>{{ movie_1_vote_count }}</h1>
+    <div postion>
+      <div style="width: 50%; float:left; box-sizing: border-box;">
+        <div style="width: 110%">
+         <h1>vote : {{ movie_1_vote_count }}</h1>
+        </div>
       </div>
-
-      <div>
-        <h1>{{ movie_2_vote_count }}</h1>
+      <div style="width: 50%; float:right; box-sizing: border-box;" >
+        <div style="width: 90%">
+          <h1>vote : {{ movie_2_vote_count }}</h1>
+        </div>
       </div>
     </div>
     
