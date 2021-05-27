@@ -75,10 +75,10 @@ export default {
   },
   methods: {
     onClick1: function() {
-      // const movie_data_1 = this.movie_1[0]
-      // console.log(movie_data_1)
-      // console.log('1')
-      // this.$store.dispatch('FETCH_VOTE_MOVIE', movie_data_1)
+      const movie_data_1 = this.movie_1[0]
+      console.log(movie_data_1)
+      console.log('1')
+      this.$store.dispatch('FETCH_VOTE_MOVIE', movie_data_1)
     }
   },
   async created() {

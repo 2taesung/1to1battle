@@ -11,7 +11,7 @@ class CommunitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Community
         fields = (
-            'user', 'title', 'movie_title_1', 'movie_title_2',
+            'user', 'title', 'movie_title_1', 'movie_title_2', 'id',
         )
         read_only_fields = [
             'user', 'movie_title_1', 'movie_title_2',
@@ -32,7 +32,7 @@ class VoteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = ['id', 'content', 'post_id', 'user_id']
+# class CommentSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Comment
+#         fields = ['id', 'content', 'post_id', 'user_id']
