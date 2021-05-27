@@ -2,7 +2,18 @@ import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// axios.defaults.baseURL = 'http://localhost:8000'
+axios.defaults.baseURL = 'http://localhost:8000'
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('jwt')
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `JWT ${token}`
+  } else {
+    axios.defaults.headers.common['Authorization'] = ''
+  }
+  return config;
+}, function (error) {
+  return Promise.reject(error);
+});
 
 Vue.use(Vuex)
 
@@ -17,6 +28,8 @@ export default new Vuex.Store({
     movie1url:[],
     movie_1_count:0,
     movie_2_count:0,
+    movie_hot_1:[],
+    movie_hot_2:[],
     
     token: localStorage.getItem('token'),
   },
@@ -55,14 +68,43 @@ export default new Vuex.Store({
     },
     MOVIE_2_VOTE_COUNT(state, movie_2_count){
       state.movie_2_count = movie_2_count
+    },
+    MOVIE_HOT_TWO(state, movie_hot) {
+      state.movie_hot_1 = movie_hot.movie_title_1
+      state.movie_hot_2 = movie_hot.movie_title_2
     }
 
   },
   actions: {
-    // async FETCH_VOTE_MOVIE({ commit }, movie_data_1) {
-    //   console.log(commit)
-    //   console.log(movie_data_1)
-    // },
+    async FETCH_RECOMMAND({ commit }) {
+      console.log(commit)
+      // console.log('추천')
+      const RECOMMAND_URL = `http://localhost:8000/api/v1/community/recommand/`
+      let response = await axios.get(RECOMMAND_URL)
+      console.log(response.data)
+      // commit(response)
+      const movie_hot = response.data
+      commit('MOVIE_HOT_TWO', movie_hot)
+    },
+    async FETCH_VOTE_MOVIE({ commit }, movie_data_1) {
+      console.log(commit)
+      // console.log(movie_data_1)
+      const token = sessionStorage.getItem('jwt')
+      const options = {
+        headers: {
+          Authorization: 'JWT ' + token
+        }
+      }
+  
+      const vote_movie_id = movie_data_1.id
+      const VOTE_MOVIE= `http://localhost:8000/api/v1/community/my_vote/${vote_movie_id}/`
+      let response = await axios.post(VOTE_MOVIE, options)
+      
+      // const token = response.data.access
+      // localStorage.setItem('token', token)
+      // commit('', token)
+      console.log(response)
+    },
     async FETCH_DELETE_POST({ commit }, battle){
       console.log(commit)
       console.log(battle)
