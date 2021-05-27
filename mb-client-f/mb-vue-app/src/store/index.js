@@ -80,10 +80,24 @@ export default new Vuex.Store({
       const hotmovie_1_data = responsedata.filter(movie => movie.id === state.movie_hot_1)
       console.log(hotmovie_1_data)
       state.movie_hot_1_poster_url = hotmovie_1_data[0].poster_path
+    },
+    GET_POSTER_URL2(state, responsedata){
+      const hotmovie_2_data = responsedata.filter(movie => movie.id === state.movie_hot_2)
+      console.log(hotmovie_2_data)
+      state.movie_hot_2_poster_url = hotmovie_2_data[0].poster_path
     }
 
   },
   actions: {
+    // async getPosterHot2({ commit }){
+    //   console.log(commit)
+    //   const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
+    //   const response = await axios.get(BATTLE_MOVIE_URL)
+    //   const responsedata = response.data
+
+    //   commit('GET_POSTER_URL1', responsedata)
+    //   commit('GET_POSTER_URL2', responsedata)
+    // },
     async getPosterHot1({ commit }){
       console.log(commit)
       const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
