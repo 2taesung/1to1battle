@@ -29,7 +29,9 @@ export default new Vuex.Store({
     movie_1_count:0,
     movie_2_count:0,
     movie_hot_1:[],
+    movie_hot_1_poster_url:[],
     movie_hot_2:[],
+    movie_hot_2_poster_url:[],
     
     token: localStorage.getItem('token'),
   },
@@ -39,7 +41,8 @@ export default new Vuex.Store({
     },
     getPostBattle_Movie(state) {
       return state.postbattle
-    }
+    },
+
   },
   mutations: {
     FETCH_BATTLE_LIST(state, battlelist){
@@ -72,10 +75,30 @@ export default new Vuex.Store({
     MOVIE_HOT_TWO(state, movie_hot) {
       state.movie_hot_1 = movie_hot.movie_title_1
       state.movie_hot_2 = movie_hot.movie_title_2
+    },
+    GET_POSTER_URL1(state, responsedata){
+      const hotmovie_1_data = responsedata.filter(movie => movie.id === state.movie_hot_1)
+      console.log(hotmovie_1_data)
+      state.movie_hot_1_poster_url = hotmovie_1_data[0].poster_path
     }
 
   },
   actions: {
+    async getPosterHot1({ commit }){
+      console.log(commit)
+      const BATTLE_MOVIE_URL = 'http://localhost:8000/api/v1/community/movie_list/'
+      const response = await axios.get(BATTLE_MOVIE_URL)
+      const responsedata = response.data
+      // console.log(responsedata)
+      // const hot1 = $state.movie_hot_1
+      // console.log(hot1)
+      // const ans1 = responsedata.filter(movie => movie.id === hot1)
+      // console.log(ans1)
+      commit('GET_POSTER_URL1', responsedata)
+      commit('GET_POSTER_URL2', responsedata)
+
+      // return ans1.poster_path
+    },
     async FETCH_RECOMMAND({ commit }) {
       console.log(commit)
       // console.log('추천')
@@ -85,6 +108,7 @@ export default new Vuex.Store({
       // commit(response)
       const movie_hot = response.data
       commit('MOVIE_HOT_TWO', movie_hot)
+
     },
     async FETCH_VOTE_MOVIE({ commit }, movie_data_1) {
       console.log(commit)
