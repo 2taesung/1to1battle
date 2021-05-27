@@ -59,6 +59,22 @@ export default new Vuex.Store({
 
   },
   actions: {
+    // async FETCH_VOTE_MOVIE({ commit }, movie_data_1) {
+    //   console.log(commit)
+    //   console.log(movie_data_1)
+    // },
+    async FETCH_DELETE_POST({ commit }, battle){
+      console.log(commit)
+      console.log(battle)
+      const battle_id = battle.id
+      const BATTLE_DETAIL= `http://localhost:8000/api/v1/community/post_detail/${battle_id}/`
+      let response = await axios.delete(BATTLE_DETAIL)
+      // response = targetTodo
+      console.log(response)
+
+      // commit('DELETE_TODO', targetTodo)
+
+    },
     async FETCH_VOTE_MOVIE_COUNT_2({ commit }, movie_data_2) {
       console.log(commit)
       const movie_id = movie_data_2.id
