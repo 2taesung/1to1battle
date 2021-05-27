@@ -33,9 +33,6 @@ export default {
     }
   },
   methods: {
-      // signup(){
-      //   this.$store.dispatch('CREATE_USER', this.userInfo)
-      // }
       signup: function() {
         axios({
           method: 'POST',

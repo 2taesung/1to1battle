@@ -54,7 +54,7 @@ def movie_list(request):
     #     if serializer.is_valid(raise_exception=True):
     #         serializer.save(author=request.user)
     #         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
-   
+
 
 #게시글 리스트 불러오기
 @api_view(['GET', 'POST'])
@@ -104,9 +104,16 @@ def my_vote(request, movie_pk):
             return Response(serializer.data)
     elif request.method == 'POST':
         print(request.user)
-        movie.vote_users.add(request.user)
-        serializer = MovieSerializer(movie)
-        return Response(data = serializer.data)
+        print(request.user.id)
+        print('여기')
+        movie.vote_users.add(request.user.id)
+        serializer = MovieSerializer(data=request.data)
+        # print(serializer.data) 
+        # console.log(serializer)
+        if serializer.is_valid(raise_exception=True):
+            print('제발')
+            serializer.save(vote_users=request.user.id)
+        return Response(data=serializer.data)
     else:
         movie.vote_users.remove(request.user)
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -21,7 +21,10 @@ class CommunitySerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = '__all__'
+        fields = ('__all__')
+        read_only_fields = [
+            'vote_users',
+        ]
             # 'title', 'overview', 'poster_path',
             # 'created_at', 'updated_at',
         
